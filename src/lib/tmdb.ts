@@ -447,15 +447,22 @@ export async function searchTV(query: string, page: number = 1) {
 }
 
 export async function searchAnime(query: string, page: number = 1) {
-  const data = await fetchFromTMDB("/discover/tv", {
-    with_genres: "16",
-    with_original_language: "ja",
-    with_text_query: query,
+  const data = await fetchFromTMDB("/search/tv", {
+    query,
     page,
-    sort_by: "popularity.desc",
+    include_adult: false,
   });
+
+  const filtered = (data.results || []).filter((item: any) => {
+    const genreIds = Array.isArray(item.genre_ids) ? item.genre_ids : [];
+    const isAnimation = genreIds.includes(16);
+    const isJapanese = item.original_language === "ja";
+    const title = (item.name || item.original_name || item.title || item.original_title || "").toLowerCase();
+    return isAnimation || isJapanese || title.includes("anime");
+  });
+
   return {
-    results: (data.results || []).map((item: any) => ({ ...item, media_type: "tv" })),
+    results: filtered.map((item: any) => ({ ...item, media_type: "tv" })),
     totalPages: data.total_pages || 1,
   };
 }

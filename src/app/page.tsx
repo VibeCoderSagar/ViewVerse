@@ -7,6 +7,7 @@ import MovieCard from "@/components/MovieCard";
 import ScrollSlider from "@/components/ScrollSlider";
 import HeroSlider from "@/components/HeroSlider";
 import BannerAdRow from "@/components/BannerAdRow";
+import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 export const metadata: Metadata = {
   title: "ViewVerse - Watch Movies, TV Shows & Anime Online Free | Your Passport to Diverse Entertainment",
@@ -73,6 +74,10 @@ export default async function Home() {
           ))}
         </ScrollSlider>
       </section>
+
+      {/* Featured VerseStream App Download Card */}
+      <AppDownloadBanner variant="featured" />
+
       <BannerAdRow />
 
       {/* Row 1: Trending Movies */}

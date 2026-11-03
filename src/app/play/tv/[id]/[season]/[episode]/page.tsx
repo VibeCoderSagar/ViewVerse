@@ -5,6 +5,7 @@ import { getDetails, getSeasonDetails } from "@/lib/tmdb";
 import TVEpisodePlayerLayout from "@/components/TVEpisodePlayerLayout";
 import MovieCard from "@/components/MovieCard";
 import BannerAdRow from "@/components/BannerAdRow";
+import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 interface TVPlayerPageProps {
   params: Promise<{
@@ -60,6 +61,11 @@ export default async function TVPlayerPage({ params }: TVPlayerPageProps) {
         activeSeason={seasonNum}
         activeEpisode={episodeNum}
       />
+
+      {/* VerseStream App Player Notice */}
+      <div style={{ marginTop: "16px", marginBottom: "16px" }}>
+        <AppDownloadBanner variant="player" />
+      </div>
 
       <BannerAdRow />
 

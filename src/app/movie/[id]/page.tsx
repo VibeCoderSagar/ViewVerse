@@ -7,6 +7,8 @@ import MovieCard from "@/components/MovieCard";
 import ScrollSlider from "@/components/ScrollSlider";
 import BannerAdRow from "@/components/BannerAdRow";
 import PlayButton from "@/components/PlayButton";
+import WatchInAppButton from "@/components/WatchInAppButton";
+import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 interface MoviePageProps {
   params: Promise<{ id: string }>;
@@ -131,9 +133,15 @@ export default async function MovieDetailPage({ params }: MoviePageProps) {
             </p>
           </div>
 
-          {/* Play Button */}
-          <div style={{ marginTop: "16px" }}>
+          {/* Action Buttons: Play on Web & Watch in App */}
+          <div style={{ marginTop: "18px", display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
             <PlayButton movieId={movie.id} />
+            <WatchInAppButton label="Watch in App (4K)" />
+          </div>
+
+          {/* VerseStream App Download Compact Card */}
+          <div style={{ marginTop: "20px" }}>
+            <AppDownloadBanner variant="compact" title={title} />
           </div>
         </div>
       </div>

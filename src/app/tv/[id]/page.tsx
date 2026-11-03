@@ -6,6 +6,8 @@ import MovieCard from "@/components/MovieCard";
 import SeasonSelector from "@/components/SeasonSelector";
 import ScrollSlider from "@/components/ScrollSlider";
 import BannerAdRow from "@/components/BannerAdRow";
+import WatchInAppButton from "@/components/WatchInAppButton";
+import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 interface TVPageProps {
   params: Promise<{ id: string }>;
@@ -128,6 +130,16 @@ export default async function TVDetailPage({ params }: TVPageProps) {
             <p style={{ color: "var(--text-secondary)", lineHeight: "1.7", fontSize: "15px" }}>
               {show.overview || "No synopsis available."}
             </p>
+          </div>
+
+          {/* Action: Watch in App */}
+          <div style={{ marginTop: "18px", display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
+            <WatchInAppButton label="Watch in VerseStream App (4K)" />
+          </div>
+
+          {/* VerseStream App Download Compact Card */}
+          <div style={{ marginTop: "20px" }}>
+            <AppDownloadBanner variant="compact" title={title} />
           </div>
         </div>
       </div>

@@ -22,19 +22,23 @@ function SearchContent() {
 
   // Sync state if search params change (e.g. from redirect)
   useEffect(() => {
-    const q = searchParams.get("q");
-    const t = searchParams.get("type") as "all" | "movie" | "tv" | "anime";
-    if (q !== null) setQuery(q);
-    if (t !== null && ["all", "movie", "tv", "anime"].includes(t)) {
-      setSearchType(t);
-    }
+    const q = searchParams.get("q") ?? "";
+    const t = searchParams.get("type");
+    const normalizedType = t && ["all", "movie", "tv", "anime"].includes(t)
+      ? (t as "all" | "movie" | "tv" | "anime")
+      : "all";
+
+    setQuery(q);
+    setSearchType(normalizedType);
   }, [searchParams]);
 
   // Search logic
   const performSearch = useCallback(async (searchQuery: string, type: "all" | "movie" | "tv" | "anime", pageNum: number = 1) => {
-    if (!searchQuery.trim()) {
+    const trimmedQuery = searchQuery.trim();
+    if (!trimmedQuery) {
       setResults([]);
       setTotalPages(1);
+      setPage(1);
       return;
     }
 
@@ -47,14 +51,14 @@ function SearchContent() {
     try {
       let data;
       if (type === "movie") {
-        data = await searchMovies(searchQuery, pageNum);
+        data = await searchMovies(trimmedQuery, pageNum);
       } else if (type === "tv") {
-        data = await searchTV(searchQuery, pageNum);
+        data = await searchTV(trimmedQuery, pageNum);
       } else if (type === "anime") {
-        data = await searchAnime(searchQuery, pageNum);
+        data = await searchAnime(trimmedQuery, pageNum);
       } else {
         // "all"
-        const rawData = await searchMulti(searchQuery, pageNum);
+        const rawData = await searchMulti(trimmedQuery, pageNum);
         const filtered = rawData.results.filter(
           (item) => item.media_type === "movie" || item.media_type === "tv"
         );
@@ -67,6 +71,9 @@ function SearchContent() {
         setResults((prev) => [...prev, ...data.results]);
       }
       setTotalPages(data.totalPages);
+      if (pageNum === 1) {
+        setPage(1);
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -77,16 +84,23 @@ function SearchContent() {
 
   // Debounced effect for live typing search
   useEffect(() => {
+    if (!query.trim()) {
+      setResults([]);
+      setTotalPages(1);
+      setPage(1);
+      return;
+    }
+
     const delayDebounce = setTimeout(() => {
       setPage(1);
-      performSearch(query, searchType, 1);
-    }, 400);
+      void performSearch(query, searchType, 1);
+    }, 350);
 
     return () => clearTimeout(delayDebounce);
   }, [query, searchType, performSearch]);
 
   const loadMoreResults = async () => {
-    if (page >= totalPages || loadingMore) return;
+    if (!query.trim() || page >= totalPages || loadingMore) return;
     const nextPage = page + 1;
     setPage(nextPage);
     await performSearch(query, searchType, nextPage);

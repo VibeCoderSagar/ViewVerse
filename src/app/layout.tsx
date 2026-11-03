@@ -4,6 +4,8 @@ import "./globals.css";
 import Navigation from "@/components/Navigation";
 import AdBanner from "@/components/AdBanner";
 import TelegramFloatingButton from "@/components/TelegramFloatingButton";
+import AppDownloadModal from "@/components/AppDownloadModal";
+import AppFloatingButton from "@/components/AppFloatingButton";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -120,6 +122,8 @@ export default function RootLayout({
           </main>
         </div>
         <TelegramFloatingButton />
+        <AppFloatingButton />
+        <AppDownloadModal />
         {/* Microsoft Clarity */}
         <Script id="clarity-script" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){

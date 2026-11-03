@@ -5,6 +5,7 @@ import { getDetails } from "@/lib/tmdb";
 import StreamingPlayer from "@/components/StreamingPlayer";
 import MovieCard from "@/components/MovieCard";
 import BannerAdRow from "@/components/BannerAdRow";
+import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 interface MoviePlayerPageProps {
   params: Promise<{ id: string }>;
@@ -63,6 +64,11 @@ export default async function MoviePlayerPage({ params }: MoviePlayerPageProps) 
         <p style={{ color: "var(--text-secondary)", lineHeight: "1.6", fontSize: "14px" }}>
           {movie.overview || "No overview available for this movie."}
         </p>
+
+        {/* VerseStream App Player Notice */}
+        <div style={{ marginTop: "16px" }}>
+          <AppDownloadBanner variant="player" />
+        </div>
       </div>
 
       <BannerAdRow />
