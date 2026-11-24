@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Home, Film, Tv, Sparkles, Search, Download } from "lucide-react";
-import { APP_WEBSITE_URL, openAppDownloadModal } from "./AppDownloadModal";
+import { APP_WEBSITE_URL } from "./AppDownloadModal";
 
 interface NavItem {
   name: string;
@@ -30,11 +30,21 @@ export default function Navigation() {
     return pathname.startsWith(href);
   };
 
+  // Safe navigation handler to ensure no ad scripts intercept tab clicks
+  const handleNavClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <>
       {/* Mobile Sticky Header */}
       <header className="mobile-header">
-        <Link href="/" className="mobile-logo">
+        <Link
+          href="/"
+          className="mobile-logo"
+          onClick={handleNavClick}
+          data-no-ad="true"
+        >
           ViewVerse
         </Link>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -44,6 +54,7 @@ export default function Navigation() {
             rel="noopener noreferrer"
             className="mobile-header-app-btn"
             title="Download VerseStream App"
+            onClick={handleNavClick}
           >
             <Image
               src="/app-logo.png"
@@ -54,7 +65,12 @@ export default function Navigation() {
             />
             <span>Get App</span>
           </a>
-          <Link href="/search" aria-label="Search">
+          <Link
+            href="/search"
+            aria-label="Search"
+            onClick={handleNavClick}
+            data-no-ad="true"
+          >
             <Search size={22} className="text-secondary" />
           </Link>
         </div>
@@ -62,7 +78,12 @@ export default function Navigation() {
 
       {/* Desktop Glass Sidebar */}
       <aside className="sidebar-desktop">
-        <Link href="/" className="sidebar-logo">
+        <Link
+          href="/"
+          className="sidebar-logo"
+          onClick={handleNavClick}
+          data-no-ad="true"
+        >
           <Film size={28} className="text-accent-cyan" style={{ color: "#00f2fe" }} />
           <span>ViewVerse</span>
         </Link>
@@ -77,7 +98,11 @@ export default function Navigation() {
                   key={item.href}
                   className={`sidebar-item ${active ? "active" : ""}`}
                 >
-                  <Link href={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={handleNavClick}
+                    data-no-ad="true"
+                  >
                     <Icon size={20} />
                     <span>{item.name}</span>
                   </Link>
@@ -109,6 +134,7 @@ export default function Navigation() {
             target="_blank"
             rel="noopener noreferrer"
             className="sidebar-app-promo-btn"
+            onClick={handleNavClick}
           >
             <Download size={15} />
             <span>Download App</span>
@@ -129,6 +155,8 @@ export default function Navigation() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={handleNavClick}
+              data-no-ad="true"
               className={`mobile-nav-item ${active ? "active" : ""}`}
             >
               <Icon size={22} />
