@@ -17,15 +17,25 @@ interface AppDownloadModalProps {
   autoTriggerDelay?: number; // Delay in ms (default: 3500)
 }
 
-export default function AppDownloadModal({ autoTriggerDelay = 3500 }: AppDownloadModalProps) {
+export default function AppDownloadModal({ autoTriggerDelay = 0 }: AppDownloadModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
 
   useEffect(() => {
-    // Check if user already dismissed in this session
-    const isDismissed = sessionStorage.getItem("vs_app_popup_dismissed") === "true";
+    // Check if user already dismissed recently
+    let isDismissed = false;
+    try {
+      isDismissed =
+        sessionStorage.getItem("vs_app_popup_dismissed") === "true" ||
+        Boolean(
+          localStorage.getItem("vs_app_popup_dismissed_until") &&
+            Date.now() < Number(localStorage.getItem("vs_app_popup_dismissed_until"))
+        );
+    } catch {
+      isDismissed = false;
+    }
 
-    // Auto-open after delay if not dismissed
+    // Auto-open only if explicit delay > 0 and user has not dismissed
     let timer: NodeJS.Timeout | null = null;
     if (!isDismissed && !hasAutoOpened && autoTriggerDelay > 0) {
       timer = setTimeout(() => {
@@ -34,7 +44,7 @@ export default function AppDownloadModal({ autoTriggerDelay = 3500 }: AppDownloa
       }, autoTriggerDelay);
     }
 
-    // Listen to custom event for manual opening
+    // Listen to custom event for manual opening (from Header, Banner, Floating Button)
     const handleOpen = () => {
       setIsOpen(true);
     };
@@ -50,7 +60,16 @@ export default function AppDownloadModal({ autoTriggerDelay = 3500 }: AppDownloa
   // Handle Close
   const handleClose = () => {
     setIsOpen(false);
-    sessionStorage.setItem("vs_app_popup_dismissed", "true");
+    try {
+      sessionStorage.setItem("vs_app_popup_dismissed", "true");
+      // Dismiss for 7 days
+      localStorage.setItem(
+        "vs_app_popup_dismissed_until",
+        String(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      );
+    } catch {
+      // ignore
+    }
   };
 
   // Close on Escape key

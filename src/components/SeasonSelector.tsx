@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Play } from "lucide-react";
@@ -20,7 +19,6 @@ interface SeasonSelectorProps {
 }
 
 export default function SeasonSelector({ tvId, seasons }: SeasonSelectorProps) {
-  const router = useRouter();
 
   // Filter out specials (season_number: 0) unless it is the only season
   const filteredSeasons = seasons.filter(
@@ -78,14 +76,10 @@ export default function SeasonSelector({ tvId, seasons }: SeasonSelectorProps) {
             const episodePath = `/play/tv/${tvId}/${activeSeason}/${episode.episode_number}`;
 
             return (
-              <a
+              <Link
                 href={episodePath}
                 key={episode.id}
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.open("https://interventioncopiedloitering.com/ucx2qnm2?key=76291fbf1d15cbf95bf6d27764f47697", "_blank");
-                  router.push(episodePath);
-                }}
+                style={{ textDecoration: "none" }}
               >
                 <div className="episode-card">
                   <div className="episode-thumb-container">
@@ -122,7 +116,7 @@ export default function SeasonSelector({ tvId, seasons }: SeasonSelectorProps) {
                     </p>
                   </div>
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>

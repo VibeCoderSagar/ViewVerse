@@ -1,6 +1,3 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Star } from "lucide-react";
@@ -20,20 +17,8 @@ export default function MovieCard({ item, type }: MovieCardProps) {
   const year = date ? new Date(date).getFullYear() : "N/A";
   const rating = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
 
-  const router = useRouter();
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    // Open Smartlink in new tab
-    window.open("https://interventioncopiedloitering.com/ucx2qnm2?key=76291fbf1d15cbf95bf6d27764f47697", "_blank");
-
-    // Smoothly route current tab to content details
-    router.push(`/${pathPrefix}/${item.id}`);
-  };
-
   return (
-    <Link href={`/${pathPrefix}/${item.id}`} onClick={handleClick}>
+    <Link href={`/${pathPrefix}/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
       <div className="movie-card">
         <div className="movie-card-img-container">
           {item.poster_path ? (

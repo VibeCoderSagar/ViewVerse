@@ -1,6 +1,4 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Play } from "lucide-react";
 
 interface PlayButtonProps {
@@ -8,26 +6,22 @@ interface PlayButtonProps {
 }
 
 export default function PlayButton({ movieId }: PlayButtonProps) {
-  const router = useRouter();
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    // Open Smartlink ad in new tab
-    window.open("https://interventioncopiedloitering.com/ucx2qnm2?key=76291fbf1d15cbf95bf6d27764f47697", "_blank");
-
-    // Route background tab to video player page
-    router.push(`/play/movie/${movieId}`);
-  };
-
   return (
-    <button 
-      onClick={handleClick} 
+    <Link 
+      href={`/play/movie/${movieId}`}
       className="btn btn-primary" 
-      style={{ padding: "14px 40px", border: "none", cursor: "pointer" }}
+      style={{
+        padding: "14px 40px",
+        border: "none",
+        cursor: "pointer",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        textDecoration: "none",
+      }}
     >
       <Play size={20} fill="currentColor" />
       Play Now
-    </button>
+    </Link>
   );
 }

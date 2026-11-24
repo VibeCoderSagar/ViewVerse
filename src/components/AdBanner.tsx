@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 
 export default function AdBanner() {
   const handleAdClick = () => {
-    window.open("https://interventioncopiedloitering.com/ucx2qnm2?key=76291fbf1d15cbf95bf6d27764f47697", "_blank");
+    window.open("https://interventioncopiedloitering.com/ucx2qnm2?key=76291fbf1d15cbf95bf6d27764f47697", "_blank", "noopener,noreferrer");
   };
 
   return (

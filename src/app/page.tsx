@@ -94,7 +94,6 @@ export default async function Home() {
           ))}
         </ScrollSlider>
       </section>
-      <BannerAdRow />
 
       {/* Row 2: Trending TV Shows */}
       <section className="horizontal-scroll-container">
@@ -110,6 +109,7 @@ export default async function Home() {
           ))}
         </ScrollSlider>
       </section>
+
       <BannerAdRow />
 
       {/* Row 3: Trending Anime */}
@@ -126,7 +126,6 @@ export default async function Home() {
           ))}
         </ScrollSlider>
       </section>
-      <BannerAdRow />
 
       {/* Row 4: Popular Action Movies */}
       <section className="horizontal-scroll-container">
@@ -139,7 +138,6 @@ export default async function Home() {
           ))}
         </ScrollSlider>
       </section>
-      <BannerAdRow />
     </div>
   );
 }
