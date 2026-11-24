@@ -76,6 +76,9 @@ export const metadata: Metadata = {
   verification: {
     google: "7HAZMQqSuJV8VtwX2lQ-jql9nD2LpMDLWzci8At3SpI",
   },
+  other: {
+    monetag: "82b1089c236a313bfbfa25eca205fcfb",
+  },
   alternates: {
     canonical: "https://viewverse.space",
   },
@@ -89,6 +92,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Monetag Verification */}
+        <meta name="monetag" content="82b1089c236a313bfbfa25eca205fcfb" />
         {/* JSON-LD Structured Data for Website */}
         <script
           type="application/ld+json"
