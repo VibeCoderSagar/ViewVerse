@@ -23,6 +23,17 @@ const navItems: NavItem[] = [
 export default function Navigation() {
   const pathname = usePathname();
 
+  const getActiveIndex = () => {
+    if (pathname === "/") return 0;
+    if (pathname.startsWith("/movie")) return 1;
+    if (pathname.startsWith("/tv")) return 2;
+    if (pathname.startsWith("/anime")) return 3;
+    if (pathname.startsWith("/search")) return 4;
+    return 0;
+  };
+
+  const activeIndex = getActiveIndex();
+
   const isActive = (href: string) => {
     if (href === "/") {
       return pathname === "/";
@@ -146,25 +157,39 @@ export default function Navigation() {
         </div>
       </aside>
 
-      {/* Mobile Sticky Bottom Nav */}
-      <nav className="mobile-nav">
-        {navItems.map((item) => {
-          const active = isActive(item.href);
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={handleNavClick}
-              data-no-ad="true"
-              className={`mobile-nav-item ${active ? "active" : ""}`}
-            >
-              <Icon size={22} />
-              <span>{item.name}</span>
-            </Link>
-          );
-        })}
-      </nav>
+      {/* BitChord-Style Liquid Glass Floating Navigation Bar */}
+      <div className="mobile-nav-wrapper">
+        <nav
+          className="mobile-nav-glass"
+          style={{ "--active-idx": activeIndex } as React.CSSProperties}
+          role="navigation"
+          aria-label="Mobile Navigation"
+        >
+          {/* Sliding Glass Selection Lens Pill */}
+          <div className="glass-indicator-pill" aria-hidden="true" />
+
+          {navItems.map((item, idx) => {
+            const active = idx === activeIndex;
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={handleNavClick}
+                data-no-ad="true"
+                className={`mobile-glass-tab ${active ? "active" : ""}`}
+                aria-current={active ? "page" : undefined}
+              >
+                <div className="tab-icon-wrapper">
+                  <Icon size={21} className="tab-icon" />
+                </div>
+                <span className="tab-label">{item.name}</span>
+                <span className="tab-active-dot" aria-hidden="true" />
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
     </>
   );
 }

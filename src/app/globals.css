@@ -126,14 +126,14 @@ a {
     left: 18px;
     bottom: 18px;
     width: 220px;
-    background: rgba(13, 10, 27, 0.6);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--glass-border);
+    background: rgba(13, 10, 25, 0.72);
+    backdrop-filter: blur(28px) saturate(210%) contrast(108%);
+    -webkit-backdrop-filter: blur(28px) saturate(210%) contrast(108%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 22px;
     padding: 24px 16px;
     z-index: 100;
-    box-shadow: var(--card-shadow);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), inset 0 1.5px 2px rgba(255, 255, 255, 0.25);
   }
 }
 
@@ -179,44 +179,168 @@ a {
   border-left: 3px solid var(--accent-cyan);
 }
 
-/* Mobile Bottom Navigation */
-.mobile-nav {
+/* ============================================================
+   BitChord-Style Liquid Glass Floating Bottom Navigation Bar
+   ============================================================ */
+.mobile-nav-wrapper {
   position: fixed;
-  bottom: 0;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   left: 0;
   right: 0;
-  height: 72px;
-  background: rgba(8, 7, 13, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid var(--glass-border);
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  padding: 0 10px;
-  z-index: 999;
+  padding: 0 14px;
+  pointer-events: none;
+  z-index: 1000;
 }
 
 @media (min-width: 769px) {
-  .mobile-nav {
+  .mobile-nav-wrapper {
     display: none;
   }
 }
 
-.mobile-nav-item {
+.mobile-nav-glass {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 420px;
+  height: 64px;
+  padding: 5px;
+  pointer-events: auto;
+
+  /* BitChord Liquid Glass Surface */
+  background: rgba(13, 10, 25, 0.78);
+  -webkit-backdrop-filter: blur(28px) saturate(210%) contrast(108%);
+  backdrop-filter: blur(28px) saturate(210%) contrast(108%);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  /* Layered Specular Reflection & Glowing Edge Shadows */
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.65),
+    0 0 25px rgba(0, 242, 254, 0.12),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.35),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.5);
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Sliding Glass Selection Lens Pill (Compose-style Spring Physics) */
+.glass-indicator-pill {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc((100% - 10px) / 5);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 1;
+
+  /* BitChord Refractive Cyan-Violet Glass Fill */
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.24) 0%, rgba(112, 0, 255, 0.28) 100%);
+  border: 1px solid rgba(0, 242, 254, 0.45);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+    0 4px 16px rgba(0, 242, 254, 0.35);
+
+  /* Spring Physics: damping 0.72, stiffness 320 -> cubic-bezier(0.34, 1.45, 0.64, 1) */
+  transform: translateX(calc(var(--active-idx, 0) * 100%));
+  transition: transform 0.42s cubic-bezier(0.34, 1.45, 0.64, 1);
+  will-change: transform;
+}
+
+/* Tab Item */
+.mobile-glass-tab {
+  flex: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  color: var(--text-secondary);
-  font-size: 11px;
-  font-weight: 500;
-  transition: var(--transition-smooth);
+  justify-content: center;
+  gap: 2px;
+  text-decoration: none;
+  position: relative;
+  z-index: 2;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.52);
+  transition: color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
-.mobile-nav-item.active {
-  color: var(--accent-cyan);
-  text-shadow: var(--glow-cyan);
+.mobile-glass-tab:active {
+  transform: scale(0.92);
+}
+
+.tab-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.38s cubic-bezier(0.34, 1.45, 0.64, 1), filter 0.3s ease;
+}
+
+.mobile-glass-tab.active .tab-icon-wrapper {
+  transform: translateY(-1px) scale(1.12);
+  filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.9));
+}
+
+.tab-icon {
+  stroke-width: 2.1;
+  transition: stroke 0.3s ease, color 0.3s ease;
+}
+
+.mobile-glass-tab.active {
+  color: #ffffff;
+}
+
+.mobile-glass-tab.active .tab-icon {
+  color: #00f2fe;
+}
+
+.tab-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  line-height: 1.1;
+  transition: all 0.3s ease;
+}
+
+.mobile-glass-tab.active .tab-label {
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.65);
+}
+
+/* Luminous Micro Indicator Dot */
+.tab-active-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 6px var(--accent-cyan);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.45, 0.64, 1);
+  margin-top: -1px;
+}
+
+.mobile-glass-tab.active .tab-active-dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Legacy Fallback Support */
+.mobile-nav {
+  display: none;
+}
+.mobile-nav-item {
+  display: none;
 }
 
 /* Card Glossy Animation & Hover Sweep */
