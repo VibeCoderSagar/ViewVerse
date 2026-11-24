@@ -5,7 +5,6 @@ import { getDetails, getImageUrl } from "@/lib/tmdb";
 import MovieCard from "@/components/MovieCard";
 import SeasonSelector from "@/components/SeasonSelector";
 import ScrollSlider from "@/components/ScrollSlider";
-import BannerAdRow from "@/components/BannerAdRow";
 import WatchInAppButton from "@/components/WatchInAppButton";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
 
@@ -172,8 +171,6 @@ export default async function TVDetailPage({ params }: TVPageProps) {
         </section>
       )}
 
-      <BannerAdRow />
-
       {/* Season & Episode Selector */}
       {show.seasons && show.seasons.length > 0 && (
         <section style={{ marginBottom: "40px" }}>
@@ -192,8 +189,6 @@ export default async function TVDetailPage({ params }: TVPageProps) {
           </div>
         </section>
       )}
-
-      <BannerAdRow />
     </div>
   );
 }

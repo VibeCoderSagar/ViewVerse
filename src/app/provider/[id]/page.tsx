@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Search as SearchIcon, Star, ArrowLeft } from "lucide-react";
 import { getProviderContent, OTT_PROVIDERS, MovieOrShow, getImageUrl } from "@/lib/tmdb";
 import MovieCard from "@/components/MovieCard";
-import BannerAdRow from "@/components/BannerAdRow";
 
 const GENRES = [
   { id: "", name: "All Genres" },
@@ -279,15 +278,8 @@ export default function ProviderPage({ params }: ProviderPageProps) {
       ) : items.length > 0 ? (
         <>
           <div className="content-grid">
-            {items.map((item, index) => (
-              <Fragment key={item.id}>
-                <MovieCard item={item} type={item.media_type || "movie"} />
-                {(index + 1) % 15 === 0 && (
-                  <div style={{ gridColumn: "1 / -1" }}>
-                    <BannerAdRow />
-                  </div>
-                )}
-              </Fragment>
+            {items.map((item) => (
+              <MovieCard key={item.id} item={item} type={item.media_type || "movie"} />
             ))}
           </div>
 

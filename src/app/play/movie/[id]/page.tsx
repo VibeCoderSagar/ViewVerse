@@ -4,7 +4,6 @@ import { ArrowLeft, Star, Film } from "lucide-react";
 import { getDetails } from "@/lib/tmdb";
 import StreamingPlayer from "@/components/StreamingPlayer";
 import MovieCard from "@/components/MovieCard";
-import BannerAdRow from "@/components/BannerAdRow";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 interface MoviePlayerPageProps {
@@ -71,8 +70,6 @@ export default async function MoviePlayerPage({ params }: MoviePlayerPageProps) 
         </div>
       </div>
 
-      <BannerAdRow />
-
       {/* Recommendations Section */}
       {recommendations.length > 0 && (
         <section style={{ marginTop: "40px" }}>
@@ -84,8 +81,6 @@ export default async function MoviePlayerPage({ params }: MoviePlayerPageProps) 
           </div>
         </section>
       )}
-
-      <BannerAdRow />
     </div>
   );
 }

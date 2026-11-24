@@ -1330,44 +1330,6 @@ a {
   }
 }
 
-/* 320x50 Banner Ads Row Styling */
-.banner-ad-row-container {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 20px 0;
-}
-
-.banner-ad-box {
-  width: 320px;
-  height: 50px;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-  background: rgba(13, 10, 27, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.banner-ad-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.15);
-}
-
-.desktop-only-ad {
-  display: none;
-}
-
-@media (min-width: 769px) {
-.desktop-only-ad {
-    display: flex;
-  }
-}
 
 /* Telegram Floating Button */
 .telegram-floating-btn {

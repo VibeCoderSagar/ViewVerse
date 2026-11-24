@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Play } from "lucide-react";
+import { triggerMonetagPopunder } from "@/lib/monetag";
 
 interface PlayButtonProps {
   movieId: number;
@@ -9,6 +12,7 @@ export default function PlayButton({ movieId }: PlayButtonProps) {
   return (
     <Link 
       href={`/play/movie/${movieId}`}
+      onClick={() => triggerMonetagPopunder()}
       className="btn btn-primary" 
       style={{
         padding: "14px 40px",

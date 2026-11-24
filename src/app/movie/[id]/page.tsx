@@ -5,7 +5,6 @@ import { Play, Star, Calendar, Clock, Globe } from "lucide-react";
 import { getDetails, getImageUrl } from "@/lib/tmdb";
 import MovieCard from "@/components/MovieCard";
 import ScrollSlider from "@/components/ScrollSlider";
-import BannerAdRow from "@/components/BannerAdRow";
 import PlayButton from "@/components/PlayButton";
 import WatchInAppButton from "@/components/WatchInAppButton";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
@@ -174,8 +173,6 @@ export default async function MovieDetailPage({ params }: MoviePageProps) {
         </section>
       )}
 
-      <BannerAdRow />
-
       {/* More Recommendations */}
       {recommendations.length > 0 && (
         <section style={{ marginTop: "40px" }}>
@@ -187,8 +184,6 @@ export default async function MovieDetailPage({ params }: MoviePageProps) {
           </div>
         </section>
       )}
-
-      <BannerAdRow />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Play, Tv, List, ChevronRight } from "lucide-react";
 import { getSeasonDetails, Episode, getImageUrl, SeasonDetail } from "@/lib/tmdb";
 import StreamingPlayer from "@/components/StreamingPlayer";
+import { triggerMonetagPopunder } from "@/lib/monetag";
 
 interface TVEpisodePlayerLayoutProps {
   tvId: number;
@@ -77,6 +78,8 @@ export default function TVEpisodePlayerLayout({
   const currentEpOverview = currentPlayingEpisode?.overview || "No overview description available for this episode.";
 
   const handleEpisodeSelect = (episodeNum: number) => {
+    // Smart popunder trigger without breaking navigation
+    triggerMonetagPopunder();
     // Navigate to the player URL for the selected episode
     router.push(`/play/tv/${tvId}/${selectedSeason}/${episodeNum}`);
   };

@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { OTT_PROVIDERS, getImageUrl } from "@/lib/tmdb";
+import { OTT_PROVIDERS } from "@/lib/tmdb";
+import OttCard from "@/components/OttCard";
 
 export default function ProvidersPage() {
   return (
@@ -15,26 +15,12 @@ export default function ProvidersPage() {
 
       <div className="providers-grid">
         {OTT_PROVIDERS.map((prov) => (
-          <Link
+          <OttCard
             key={prov.id}
-            href={`/provider/${prov.id}`}
-            className="ott-card"
-            style={{
-              width: "100%",
-              height: "140px",
-              "--hover-glow": prov.brandColor,
-            } as React.CSSProperties}
-          >
-            <img
-              src={getImageUrl(prov.logo, "w200")}
-              alt={prov.name}
-              className="ott-logo-img"
-              style={{ width: "64px", height: "64px" }}
-            />
-            <span className="ott-card-name" style={{ fontSize: "14px" }}>
-              {prov.name}
-            </span>
-          </Link>
+            provider={prov}
+            style={{ width: "100%", height: "140px" }}
+            imgStyle={{ width: "64px", height: "64px" }}
+          />
         ))}
       </div>
     </div>

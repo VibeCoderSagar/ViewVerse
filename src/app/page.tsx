@@ -6,7 +6,7 @@ import { getTrending, getAnime, getMovies, getImageUrl, OTT_PROVIDERS } from "@/
 import MovieCard from "@/components/MovieCard";
 import ScrollSlider from "@/components/ScrollSlider";
 import HeroSlider from "@/components/HeroSlider";
-import BannerAdRow from "@/components/BannerAdRow";
+import OttCard from "@/components/OttCard";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 export const metadata: Metadata = {
@@ -54,31 +54,13 @@ export default async function Home() {
         </div>
         <ScrollSlider>
           {OTT_PROVIDERS.map((prov) => (
-            <Link
-              key={prov.id}
-              href={`/provider/${prov.id}`}
-              className="ott-card"
-              style={{
-                "--hover-glow": prov.brandColor,
-              } as React.CSSProperties}
-              draggable={false}
-            >
-              <img
-                src={getImageUrl(prov.logo, "w200")}
-                alt={prov.name}
-                className="ott-logo-img"
-                draggable={false}
-              />
-              <span className="ott-card-name">{prov.name}</span>
-            </Link>
+            <OttCard key={prov.id} provider={prov} />
           ))}
         </ScrollSlider>
       </section>
 
       {/* Featured VerseStream App Download Card */}
       <AppDownloadBanner variant="featured" />
-
-      <BannerAdRow />
 
       {/* Row 1: Trending Movies */}
       <section className="horizontal-scroll-container">
@@ -109,8 +91,6 @@ export default async function Home() {
           ))}
         </ScrollSlider>
       </section>
-
-      <BannerAdRow />
 
       {/* Row 3: Trending Anime */}
       <section className="horizontal-scroll-container">

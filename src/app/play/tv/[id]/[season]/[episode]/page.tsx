@@ -4,7 +4,6 @@ import { ArrowLeft } from "lucide-react";
 import { getDetails, getSeasonDetails } from "@/lib/tmdb";
 import TVEpisodePlayerLayout from "@/components/TVEpisodePlayerLayout";
 import MovieCard from "@/components/MovieCard";
-import BannerAdRow from "@/components/BannerAdRow";
 import AppDownloadBanner from "@/components/AppDownloadBanner";
 
 interface TVPlayerPageProps {
@@ -67,8 +66,6 @@ export default async function TVPlayerPage({ params }: TVPlayerPageProps) {
         <AppDownloadBanner variant="player" />
       </div>
 
-      <BannerAdRow />
-
       {/* Recommendations Section */}
       {recommendations.length > 0 && (
         <section style={{ marginTop: "40px" }}>
@@ -80,8 +77,6 @@ export default async function TVPlayerPage({ params }: TVPlayerPageProps) {
           </div>
         </section>
       )}
-
-      <BannerAdRow />
     </div>
   );
 }

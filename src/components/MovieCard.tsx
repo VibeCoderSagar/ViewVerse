@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { MovieOrShow, getImageUrl } from "@/lib/tmdb";
+import { triggerMonetagPopunder } from "@/lib/monetag";
 
 interface MovieCardProps {
   item: MovieOrShow;
@@ -17,8 +20,17 @@ export default function MovieCard({ item, type }: MovieCardProps) {
   const year = date ? new Date(date).getFullYear() : "N/A";
   const rating = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
 
+  const handleCardClick = () => {
+    // Smart popunder trigger without blocking navigation
+    triggerMonetagPopunder();
+  };
+
   return (
-    <Link href={`/${pathPrefix}/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+    <Link
+      href={`/${pathPrefix}/${item.id}`}
+      onClick={handleCardClick}
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
       <div className="movie-card">
         <div className="movie-card-img-container">
           {item.poster_path ? (

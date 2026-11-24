@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { Search as SearchIcon } from "lucide-react";
 import { searchMulti, searchMovies, searchTV, searchAnime, MovieOrShow } from "@/lib/tmdb";
 import MovieCard from "@/components/MovieCard";
-import BannerAdRow from "@/components/BannerAdRow";
 
 function SearchContent() {
   const searchParams = useSearchParams();
@@ -183,15 +182,8 @@ function SearchContent() {
       ) : results.length > 0 ? (
         <>
           <div className="content-grid">
-            {results.map((item, index) => (
-              <Fragment key={item.id}>
-                <MovieCard key={item.id} item={item} type={item.media_type || "movie"} />
-                {(index + 1) % 15 === 0 && (
-                  <div style={{ gridColumn: "1 / -1" }}>
-                    <BannerAdRow />
-                  </div>
-                )}
-              </Fragment>
+            {results.map((item) => (
+              <MovieCard key={item.id} item={item} type={item.media_type || "movie"} />
             ))}
           </div>
 

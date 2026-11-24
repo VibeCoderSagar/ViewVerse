@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Play } from "lucide-react";
 import { getSeasonDetails, Episode, getImageUrl } from "@/lib/tmdb";
 import ScrollSlider from "@/components/ScrollSlider";
+import { triggerMonetagPopunder } from "@/lib/monetag";
 
 interface SeasonSelectorProps {
   tvId: number;
@@ -79,6 +80,7 @@ export default function SeasonSelector({ tvId, seasons }: SeasonSelectorProps) {
               <Link
                 href={episodePath}
                 key={episode.id}
+                onClick={() => triggerMonetagPopunder()}
                 style={{ textDecoration: "none" }}
               >
                 <div className="episode-card">

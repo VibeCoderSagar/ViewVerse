@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { Search as SearchIcon } from "lucide-react";
 import { getAnime, MovieOrShow } from "@/lib/tmdb";
 import MovieCard from "@/components/MovieCard";
-import BannerAdRow from "@/components/BannerAdRow";
 
 const ANIME_GENRES = [
   { id: "", name: "All Anime Genres" },
@@ -191,15 +190,8 @@ export default function AnimePage() {
       ) : anime.length > 0 ? (
         <>
           <div className="content-grid">
-            {anime.map((item, index) => (
-              <Fragment key={item.id}>
-                <MovieCard item={item} type="tv" />
-                {(index + 1) % 15 === 0 && (
-                  <div style={{ gridColumn: "1 / -1" }}>
-                    <BannerAdRow />
-                  </div>
-                )}
-              </Fragment>
+            {anime.map((item) => (
+              <MovieCard key={item.id} item={item} type="tv" />
             ))}
           </div>
 

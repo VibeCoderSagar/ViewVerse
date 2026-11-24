@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { Search as SearchIcon } from "lucide-react";
 import { getMovies, MovieOrShow } from "@/lib/tmdb";
 import MovieCard from "@/components/MovieCard";
-import BannerAdRow from "@/components/BannerAdRow";
 
 const GENRES = [
   { id: "", name: "All Genres" },
@@ -230,15 +229,8 @@ export default function MoviesPage() {
       ) : movies.length > 0 ? (
         <>
           <div className="content-grid">
-            {movies.map((item, index) => (
-              <Fragment key={item.id}>
-                <MovieCard item={item} type="movie" />
-                {(index + 1) % 15 === 0 && (
-                  <div style={{ gridColumn: "1 / -1" }}>
-                    <BannerAdRow />
-                  </div>
-                )}
-              </Fragment>
+            {movies.map((item) => (
+              <MovieCard key={item.id} item={item} type="movie" />
             ))}
           </div>
 

@@ -94,6 +94,13 @@ export default function RootLayout({
       <head>
         {/* Monetag Verification */}
         <meta name="monetag" content="82b1089c236a313bfbfa25eca205fcfb" />
+        {/* Monetag MultiTag: Push notifications, Vignette banner, In-Page Push, Popunder */}
+        <script
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="314914"
+          async
+          data-cfasync="false"
+        />
         {/* JSON-LD Structured Data for Website */}
         <script
           type="application/ld+json"

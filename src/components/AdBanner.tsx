@@ -1,26 +1,26 @@
 "use client";
 
 import { Play } from "lucide-react";
+import { MONETAG_DIRECT_LINK } from "@/lib/monetag";
 
 export default function AdBanner() {
   const handleAdClick = () => {
-    window.open("https://interventioncopiedloitering.com/ucx2qnm2?key=76291fbf1d15cbf95bf6d27764f47697", "_blank", "noopener,noreferrer");
+    window.open(MONETAG_DIRECT_LINK, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <div className="upcoming-ad-banner" onClick={handleAdClick}>
+    <div className="upcoming-ad-banner" onClick={handleAdClick} style={{ cursor: "pointer" }}>
       <div className="ad-content">
-        <span className="ad-badge">UPCOMING</span>
+        <span className="ad-badge">HOT</span>
         <div className="ad-title-container">
-          <span className="ad-movie-tag">Money Heist 6</span>
-          <span className="ad-movie-tag">From Season 4</span>
-          <span className="ad-movie-tag">KGF Chapter 3</span>
-          <span className="ad-movie-tag">Pushpa 3</span>
+          <span className="ad-movie-tag">Trending Now</span>
+          <span className="ad-movie-tag">Exclusive HD Streams</span>
+          <span className="ad-movie-tag">Direct Access</span>
         </div>
       </div>
-      <button className="ad-btn">
+      <button className="ad-btn" type="button">
         <Play size={14} fill="currentColor" />
-        Watch Now
+        Explore
       </button>
     </div>
   );
